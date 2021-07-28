@@ -10,14 +10,24 @@ pTime = 0
 cap = cv2.VideoCapture(0)
 cap.set(3, W_CAM)
 cap.set(4, H_CAM)
+detector = htm.handDetector()
 
 while True:
     try:
-        # 1. capture the image
+        # 1. capture the image, find hand lm
         success, img = cap.read()
         img = cv2.flip(img, 1)
+        img = detector.find_hands(img)
+        lm_list, bbox = detector.find_positions(img)
+
         # 2. get tips of index(食) and middle finger
-        # 3. check which fingers are up
+        if len(lm_list) != 0:
+            x1, y1 = lm_list[8][1:]
+            x2, y2 = lm_list[12][1:]
+
+            # 3. check which fingers are up
+            fingers = detector.fingers_up()
+            print(fingers)
         # 4. if index finger: move the pointer
         # 5. convert coordinates(from cam to screen)
         # 6. smoothen
