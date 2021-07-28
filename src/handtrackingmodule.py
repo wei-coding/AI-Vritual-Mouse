@@ -5,7 +5,7 @@ import math
 import time
 
 class handDetector:
-    def __init__(self, detection_confidence=0.3, tracking_confidence=0.3):
+    def __init__(self, detection_confidence=0.5, tracking_confidence=0.5):
         self.mp_hands = mp.solutions.hands
         self.mp_drawing = mp.solutions.drawing_utils
         self.hands = self.mp_hands.Hands(
